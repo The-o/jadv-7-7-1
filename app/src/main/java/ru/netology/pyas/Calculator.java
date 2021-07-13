@@ -3,24 +3,25 @@ package ru.netology.pyas;
 public class Calculator {
 
     private double creditAmount;
-    private double interestRatePerYear;
+    private double interestPercentPerYear;
     private int loanTermIntMonth;
 
-    public Calculator(double creditAmount, double interestRatePerYear, int loanTermIntMonth) {
+    public Calculator(double creditAmount, double interestPercentPerYear, int loanTermIntMonth) {
         this.creditAmount = creditAmount;
-        this.interestRatePerYear = interestRatePerYear;
+        this.interestPercentPerYear = interestPercentPerYear;
         this.loanTermIntMonth = loanTermIntMonth;
     }
 
     public double monthlyPayment() {
-        return 0;
+        double interestRatePerMonth = interestPercentPerYear/12/100;
+        return creditAmount * (interestRatePerMonth + interestRatePerMonth/(Math.pow(1 + interestRatePerMonth, loanTermIntMonth)-1));
     }
 
     public double refundableAmount() {
-        return 0;
+        return monthlyPayment() * loanTermIntMonth;
     }
 
     public double overpaymentSize() {
-        return 0;
+        return refundableAmount() - creditAmount;
     }
 }
